@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import * as yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 const LOGIN_MUTATION = gql`
   mutation login($email: String!, $password: String!) {
@@ -18,6 +18,7 @@ interface ILoginValues {
 
 export const Login = () => {
   const history = useHistory();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [login, { data }] = useMutation(LOGIN_MUTATION);
 
   const initialValues: ILoginValues = {
@@ -57,9 +58,15 @@ export const Login = () => {
           <ErrorMessage name="email" component={"div"} />
           <Field name="password" type="password" placeholder="password" />
           <ErrorMessage name="password" component={"div"} />
-          <button type="submit">Login</button>
+          <button type="submit" className="login-button">
+            <span>Login</span>
+          </button>
         </Form>
       </Formik>
+      <div className="register">
+        <h4>Don't have an account?</h4>
+        <Link to="/signup">Signup here</Link>
+      </div>
     </div>
   );
 };

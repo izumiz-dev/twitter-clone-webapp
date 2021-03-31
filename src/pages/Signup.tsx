@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import * as yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const SIGNUP_MUTATION = gql`
   mutation signup($name: String, $email: String!, $password: String!) {
@@ -20,6 +20,7 @@ interface ISignupValues {
 
 export const Signup = () => {
   const history = useHistory();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [signup, { data }] = useMutation(SIGNUP_MUTATION);
 
   const initialValues: ISignupValues = {
@@ -49,7 +50,7 @@ export const Signup = () => {
 
   return (
     <div>
-      <h1>Signup</h1>
+      <h3>Sign up</h3>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -76,9 +77,15 @@ export const Signup = () => {
             placeholder="confirmPassword"
           />
           <ErrorMessage name="confirmPassword" component={"div"} />
-          <button type="submit">Signup</button>
+          <button type="submit" className="signup-button">
+            <span>Sign up</span>
+          </button>
         </Form>
       </Formik>
+      <div>
+        <h4>Already have an account ?</h4>
+        <Link to="/login">Log in</Link>
+      </div>
     </div>
   );
 };
